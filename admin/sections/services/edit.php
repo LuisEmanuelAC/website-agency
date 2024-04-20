@@ -28,6 +28,7 @@ if ($_POST) {
     $sql->bindParam(":title",$title);
     $sql->bindParam(":descrip",$descrip);
     $sql->execute();
+    
     $message="Registration successfully modified";
     header("Location:index.php?message=".$message);
 }
@@ -35,7 +36,7 @@ if ($_POST) {
 include("../../templates/header.php"); ?>
 
 <div class="card">
-    <div class="card-header">Editar servicio</div>
+    <div class="card-header">service edit</div>
     <div class="card-body">
         <form action="" enctype="multipart/form-data" method="post">
 
@@ -53,7 +54,7 @@ include("../../templates/header.php"); ?>
 
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input value="<?php echo $title;?>" type="text" class="form-control" name="title" id=""
+                <input value="<?php echo $title;?>" type="text" class="form-control" name="title" id="title"
                     aria-describedby="helpId" placeholder="title" />
             </div>
 

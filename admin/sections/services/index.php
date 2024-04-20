@@ -3,10 +3,10 @@ include("../../bd.php");
 
 //Borrar
 if(isset($_GET['txtID'])){
-$txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
-$sql=$conn->prepare("DELETE FROM tbl_services WHERE id=:id");
-$sql->bindParam(":id",$txtID);
-$sql->execute();
+    $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
+    $sql=$conn->prepare("DELETE FROM tbl_services WHERE id=:id");
+    $sql->bindParam(":id",$txtID);
+    $sql->execute();
 }
 
 //Lista de servicios
