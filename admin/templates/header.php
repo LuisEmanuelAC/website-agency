@@ -21,7 +21,7 @@
                         class="visually-hidden">(current)</span></a>
                 <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/services/index.php">Services</a>
                 <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/portfolio/index.php">Portfolio</a>
-                <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/input/index.php">Input</a>
+                <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/aboutline/index.php">about</a>
                 <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/team/index.php">Team</a>
                 <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/config/index.php">Config</a>
                 <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/users/index.php">Users</a>

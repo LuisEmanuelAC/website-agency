@@ -12,7 +12,6 @@ if ($_POST) {
     $sql->bindParam(":icon",$icon);
     $sql->bindParam(":title",$title);
     $sql->bindParam(":descrip",$descrip);
-
     $sql->execute();
 }
 
@@ -26,19 +25,19 @@ include("../../templates/header.php"); ?>
             <div class="mb-3">
                 <label for="icon" class="form-label">Icon</label>
                 <input type="text" class="form-control" name="icon" id="icon" aria-describedby="helpId"
-                    placeholder="icon" />
+                    placeholder="icon" required />
             </div>
 
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" name="title" id="title" aria-describedby="helpId"
-                    placeholder="title" />
+                    placeholder="title" required />
             </div>
 
             <div class="mb-3">
                 <label for="descrip" class="form-label">Description</label>
                 <input type="text" class="form-control" name="descrip" id="descrip" aria-describedby="helpId"
-                    placeholder="description" />
+                    placeholder="description" required />
             </div>
             <button type="submit" class="btn btn-success">Add</button>
             <a name="" id="" class="btn btn-primary" href="index.php" role="button">cancel</a>

@@ -46,7 +46,8 @@ if ($_POST) {
         $image=(isset($_FILES['image']['name']))?$_FILES['image']['name']:"";
 
         $image_date=new Datetime();
-        $name_file_image=($image!="")?$image_date->getTimestamp()."_".$image:"";
+        $n_rand = rand(1, 100);
+        $name_file_image=($image!="")?$image_date->getTimestamp().$n_rand."_".$image:"";
     
         $tmp_image=$_FILES["image"]["tmp_name"];
         if ($tmp_image!="") {

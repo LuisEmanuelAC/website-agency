@@ -12,11 +12,13 @@ if ($_POST) {
     $url=(isset($_POST['url']))?$_POST['url']:"";
 
     $image_date=new Datetime();
-    $name_file_image=($image!="")?$image_date->getTimestamp()."_".$image:"";
+    $n_rand = rand(1, 100);
+    $name_file_image=($image!="")?$image_date->getTimestamp().$n_rand."_".$image:"";
     
     $tmp_image=$_FILES["image"]["tmp_name"];
     if ($tmp_image!="") {
         move_uploaded_file($tmp_image,"../../../assets/img/portfolio/".$name_file_image);
+        print_r('se creo la imagen');
     }
 
     $sql=$conn->prepare("INSERT INTO `tbl_portfolio` (`id`, `title`, `subtitle`, `image`, `description`, `client`, `category`, `url`) 
@@ -29,7 +31,6 @@ if ($_POST) {
     $sql->bindParam(":client",$client);
     $sql->bindParam(":category",$category);
     $sql->bindParam(":url",$url);
-
     $sql->execute();
 }
 

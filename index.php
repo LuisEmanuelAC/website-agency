@@ -11,6 +11,11 @@ $sql=$conn->prepare("SELECT * FROM `tbl_portfolio`");
 $sql->execute();
 $list_portfolio=$sql->fetchAll(PDO::FETCH_ASSOC);
 
+//lista de la line del tiempo
+$sql=$conn->prepare("SELECT * FROM `tbl_aboutline`");
+$sql->execute();
+$list_aboutline=$sql->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -74,11 +79,11 @@ $list_portfolio=$sql->fetchAll(PDO::FETCH_ASSOC);
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas <?php echo $regis["icon"]; ?> fa-stack-1x fa-inverse"></i>
+                        <i class="fas <?php echo $regis['icon']; ?> fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="my-3"><?php echo $regis["title"]; ?></h4>
+                    <h4 class="my-3"><?php echo $regis['title']; ?></h4>
                     <p class="text-muted">
-                        <?php echo $regis["description"]; ?>
+                        <?php echo $regis['description']; ?>
                     </p>
                 </div>
                 <?php } ?>
@@ -98,23 +103,23 @@ $list_portfolio=$sql->fetchAll(PDO::FETCH_ASSOC);
                     <!-- Portfolio item 1-->
                     <div class="portfolio-item">
                         <a class="portfolio-link" data-bs-toggle="modal"
-                            href="#portfolioModal<?php echo $regis["id"];?>">
+                            href="#portfolioModal<?php echo $regis['id'];?>">
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="assets/img/portfolio/<?php echo $regis["image"]; ?>"
+                            <img class="img-fluid" src="assets/img/portfolio/<?php echo $regis['image']; ?>"
                                 alt="..." />
                         </a>
                         <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading"><?php echo $regis["title"] ?></div>
-                            <div class="portfolio-caption-subheading text-muted"><?php echo $regis["category"]; ?></div>
+                            <div class="portfolio-caption-heading"><?php echo $regis['title'] ?></div>
+                            <div class="portfolio-caption-subheading text-muted"><?php echo $regis['category']; ?></div>
                         </div>
                     </div>
                 </div>
 
 
                 <!-- Portfolio modal popup-->
-                <div class="portfolio-modal modal fade" id="portfolioModal<?php echo $regis["id"]?>" tabindex="-1"
+                <div class="portfolio-modal modal fade" id="portfolioModal<?php echo $regis['id']?>" tabindex="-1"
                     role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -125,23 +130,23 @@ $list_portfolio=$sql->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="col-lg-8">
                                         <div class="modal-body">
                                             <!-- Project details-->
-                                            <h2 class="text-uppercase"><?php echo $regis["title"] ?></h2>
-                                            <p class="item-intro text-muted"><?php echo $regis["subtitle"]; ?></p>
+                                            <h2 class="text-uppercase"><?php echo $regis['title'] ?></h2>
+                                            <p class="item-intro text-muted"><?php echo $regis['subtitle']; ?></p>
                                             <img class="img-fluid d-block mx-auto"
-                                                src="assets/img/portfolio/<?php echo $regis["image"]; ?>" alt="..." />
-                                            <p><?php echo $regis["description"] ?></p>
+                                                src="assets/img/portfolio/<?php echo $regis['image']; ?>" alt="..." />
+                                            <p><?php echo $regis['description'] ?></p>
                                             <ul class="list-inline">
                                                 <li>
                                                     <strong>Client:</strong>
-                                                    <?php echo $regis["client"]; ?>
+                                                    <?php echo $regis['client']; ?>
                                                 </li>
                                                 <li>
                                                     <strong>Category:</strong>
-                                                    <?php echo $regis["category"]; ?>
+                                                    <?php echo $regis['category']; ?>
                                                 </li>
                                                 <li>
                                                     <strong>URL:</strong>
-                                                    <a href="<?php echo $regis["url"]; ?>"> <?php echo $regis["url"]; ?>
+                                                    <a href="<?php echo $regis['url']; ?>"> <?php echo $regis['url']; ?>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -169,66 +174,28 @@ $list_portfolio=$sql->fetchAll(PDO::FETCH_ASSOC);
                 <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
             <ul class="timeline">
-                <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg"
-                            alt="..." /></div>
+
+                <?php
+                $timeline_inv="";
+                foreach($list_aboutline as $regis){ ?>
+                <li class="<?php echo $timeline_inv; ?>">
+                    <div class="timeline-image"><img class="rounded-circle img-fluid"
+                            src="assets/img/about/<?php echo $regis["image"]; ?>" alt="..." /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4>2009-2011</h4>
-                            <h4 class="subheading">Our Humble Beginnings</h4>
+                            <h4><?php echo $regis['date']; ?></h4>
+                            <h4 class="subheading"><?php echo $regis['title']; ?></h4>
                         </div>
                         <div class="timeline-body">
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut
-                                voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero
-                                unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                            <p class="text-muted"><?php echo $regis['description']; ?></p>
                         </div>
                     </div>
                 </li>
-                <li class="timeline-inverted">
-                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg"
-                            alt="..." /></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>March 2011</h4>
-                            <h4 class="subheading">An Agency is Born</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut
-                                voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero
-                                unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/3.jpg"
-                            alt="..." /></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>December 2015</h4>
-                            <h4 class="subheading">Transition to Full Service</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut
-                                voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero
-                                unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="timeline-inverted">
-                    <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/4.jpg"
-                            alt="..." /></div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>July 2020</h4>
-                            <h4 class="subheading">Phase Two Expansion</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut
-                                voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero
-                                unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                        </div>
-                    </div>
-                </li>
+                <?php
+                      if ($timeline_inv=="") { $timeline_inv="timeline-inverted";
+                    }else { $timeline_inv="";} 
+                 } ?>
+
                 <li class="timeline-inverted">
                     <div class="timeline-image">
                         <h4>
