@@ -16,6 +16,11 @@ $sql=$conn->prepare("SELECT * FROM `tbl_aboutline`");
 $sql->execute();
 $list_aboutline=$sql->fetchAll(PDO::FETCH_ASSOC);
 
+//lista del equipo
+$sql=$conn->prepare("SELECT * FROM `tbl_team`");
+$sql->execute();
+$list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -218,45 +223,48 @@ $list_aboutline=$sql->fetchAll(PDO::FETCH_ASSOC);
                 <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
             <div class="row">
+
+                <?php foreach($list_team as $regis){ ?>
                 <div class="col-lg-4">
                     <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="assets/img/team/1.jpg" alt="..." />
-                        <h4>Parveen Anand</h4>
-                        <p class="text-muted">Lead Designer</p>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i
-                                class="fab fa-twitter"></i></a>
+                        <img class="mx-auto rounded-circle" src="assets/img/team/<?php echo $regis['image']; ?>"
+                            alt="..." />
+                        <h4><?php echo $regis['fullname'] ?></h4>
+                        <p class="text-muted"><?php echo $regis['job'] ?></p>
+                        <?php
+                        $networks = $regis['networks'];
+                        $list_networks=array();
+
+                        if ($networks) $list_networks=explode(",", $networks);
+                     
+                        foreach ($list_networks as $index => $network) {
+                            $network_name=explode("->", $network);
+                            switch($network_name['0']){
+                                case"facebook":?>
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i
                                 class="fab fa-facebook-f"></i></a>
+                        <?php
+                                    break;
+                                case"twitter":?>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i
+                                class="fab fa-twitter"></i></a>
+                        <?php
+                                    break;
+                                case"linkedin":?>
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i
                                 class="fab fa-linkedin-in"></i></a>
+                        <?php
+                                    break;
+                                default:
+                                    echo "no hay redes";
+
+                            }                            
+                        } ?>
+
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="assets/img/team/2.jpg" alt="..." />
-                        <h4>Diana Petersen</h4>
-                        <p class="text-muted">Lead Marketer</p>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i
-                                class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"
-                            aria-label="Diana Petersen Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!"
-                            aria-label="Diana Petersen LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="assets/img/team/3.jpg" alt="..." />
-                        <h4>Larry Parker</h4>
-                        <p class="text-muted">Lead Developer</p>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i
-                                class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i
-                                class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
+                <?php } ?>
+
             </div>
             <div class="row">
                 <div class="col-lg-8 mx-auto text-center">
