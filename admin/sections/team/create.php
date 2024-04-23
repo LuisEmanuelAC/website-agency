@@ -8,8 +8,6 @@ if ($_POST) {
     $job=(isset($_POST['job']))?$_POST['job']:"";
     $list_networks=(isset($_POST['networks']))?$_POST['networks']:"";
 
-    print_r($list_networks);
-
     $image_date=new Datetime();
     $n_rand = rand(1, 100);
     $name_file_image=($image!="")?$image_date->getTimestamp().$n_rand."_".$image:"";

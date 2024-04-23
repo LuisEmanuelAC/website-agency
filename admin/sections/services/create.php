@@ -7,7 +7,7 @@ if ($_POST) {
     $title=(isset($_POST['title']))?$_POST['title']:"";
     $descrip=(isset($_POST['descrip']))?$_POST['descrip']:"";
 
-    $sql=$conn->prepare("INSERT INTO `tbl_services` (`id`, `icon`, `title`, `description`) VALUES (NULL, :icon, :title, :descrip);");
+    $sql=$conn->prepare("INSERT INTO `tbl_services` (`id`, `icon`, `title`, `description`) VALUES (NULL, :icon, :title, :descrip)");
 
     $sql->bindParam(":icon",$icon);
     $sql->bindParam(":title",$title);

@@ -1,6 +1,11 @@
 <?php
 include("admin/bd.php");
 
+//lista del equipo
+$sql=$conn->prepare("SELECT * FROM `tbl_config`");
+$sql->execute();
+$list_config=$sql->fetchAll(PDO::FETCH_ASSOC);
+
 //lista de servicios
 $sql=$conn->prepare("SELECT * FROM `tbl_services`");
 $sql->execute();
@@ -21,7 +26,18 @@ $sql=$conn->prepare("SELECT * FROM `tbl_team`");
 $sql->execute();
 $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
 
+function SearchIndex($name, $list){
+    foreach ($list as $index => $value) {
+        if ($value['name'] == $name) {
+            return $index;
+        }
+    }
+    return false;
+}
+
 ?>
+
+</script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,17 +83,23 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
     <!-- Masthead-->
     <header class="masthead">
         <div class="container">
-            <div class="masthead-subheading">Welcome To Our Studio!</div>
-            <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+            <div class="masthead-subheading">
+                <?php echo $list_config[SearchIndex('welcome_text', $list_config)]['value']; ?></div>
+            <div class="masthead-heading text-uppercase">
+                <?php echo $list_config[SearchIndex('welcome_subtext', $list_config)]['value']; ?>
+            </div>
+            <a class="btn btn-primary btn-xl text-uppercase"
+                href="<?php echo $list_config[SearchIndex('welcome_button_link', $list_config)]['value']; ?>"><?php echo $list_config[SearchIndex('welcome_button', $list_config)]['value']; ?></a>
         </div>
     </header>
     <!-- Services-->
     <section class="page-section" id="services">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Services</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase">
+                    <?php echo $list_config[SearchIndex('welcome_button', $list_config)]['value']; ?></h2>
+                <h3 class="section-subheading text-muted">
+                    <?php echo $list_config[SearchIndex('welcome_button_link', $list_config)]['value']; ?></h3>
             </div>
             <div class="row text-center">
                 <?php foreach($list_services as $regis){ ?>
@@ -99,8 +121,10 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section bg-light" id="portfolio">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Portfolio</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase">
+                    <?php echo $list_config[SearchIndex('portfolio_title', $list_config)]['value']; ?></h2>
+                <h3 class="section-subheading text-muted">
+                    <?php echo $list_config[SearchIndex('portfolio_descrip', $list_config)]['value']; ?></h3>
             </div>
             <div class="row">
                 <?php foreach($list_portfolio as $regis){ ?>
@@ -175,8 +199,10 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section" id="about">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">About</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase">
+                    <?php echo $list_config[SearchIndex('about_title', $list_config)]['value']; ?></h2>
+                <h3 class="section-subheading text-muted">
+                    <?php echo $list_config[SearchIndex('about_descrip', $list_config)]['value']; ?></h3>
             </div>
             <ul class="timeline">
 
@@ -188,7 +214,18 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
                             src="assets/img/about/<?php echo $regis["image"]; ?>" alt="..." /></div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
-                            <h4><?php echo $regis['date']; ?></h4>
+                            <h4><?php
+                            $deta="";
+                            $dates=explode(',', $regis['date']);
+                            if (count($dates)>1) {
+                                $date_start=explode('-', $dates['0']);
+                                $date_end=explode('-', $dates['1']);
+                                $date=$date_start['0']." - ".$date_end['0'];
+                            }else{
+                                $date_start=explode('-', $dates['0']);
+                                $date=$date_start['0']." - ".$date_start['1'];
+                            }
+                            echo $date; ?></h4>
                             <h4 class="subheading"><?php echo $regis['title']; ?></h4>
                         </div>
                         <div class="timeline-body">
@@ -204,11 +241,8 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
                 <li class="timeline-inverted">
                     <div class="timeline-image">
                         <h4>
-                            Be Part
                             <br />
-                            Of Our
-                            <br />
-                            Story!
+                            <?php echo $list_config['10']['value']; ?>
                         </h4>
                     </div>
                 </li>
@@ -219,8 +253,10 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section bg-light" id="team">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase">
+                    <?php echo $list_config[SearchIndex('team_title', $list_config)]['value']; ?></h2>
+                <h3 class="section-subheading text-muted">
+                    <?php echo $list_config[SearchIndex('team_descrip', $list_config)]['value']; ?></h3>
             </div>
             <div class="row">
 
@@ -238,21 +274,21 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
                         if ($networks) $list_networks=explode(",", $networks);
                      
                         foreach ($list_networks as $index => $network) {
-                            $network_name=explode("->", $network);
-                            switch($network_name['0']){
+                            $network_p=explode("->", $network);             
+                            switch($network_p['0']){
                                 case"facebook":?>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i
-                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="<?php echo $network_p['1']; ?>"
+                            aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
                         <?php
                                     break;
                                 case"twitter":?>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i
-                                class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="<?php echo $network_p['1']; ?>"
+                            aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
                         <?php
                                     break;
                                 case"linkedin":?>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i
-                                class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="<?php echo $network_p['1']; ?>"
+                            aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
                         <?php
                                     break;
                                 default:
@@ -301,8 +337,10 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section" id="contact">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Contact Us</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase">
+                    <?php echo $list_config[SearchIndex('contact_title', $list_config)]['value']; ?></h2>
+                <h3 class="section-subheading text-muted">
+                    <?php echo $list_config[SearchIndex('contact_descrip', $list_config)]['value']; ?></h3>
             </div>
             <!-- * * * * * * * * * * * * * * *-->
             <!-- * * SB Forms Contact Form * *-->
@@ -377,12 +415,15 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
             <div class="row align-items-center">
                 <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
                 <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i
-                            class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i
-                            class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i
-                            class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-dark btn-social mx-2"
+                        href="<?php echo $list_config[SearchIndex('twitter_link_button', $list_config)]['value']; ?>"
+                        aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2"
+                        href="<?php echo $list_config[SearchIndex('facebook_link_button', $list_config)]['value']; ?>"
+                        aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2"
+                        href="<?php echo $list_config[SearchIndex('linkedin_link_button', $list_config)]['value']; ?>"
+                        aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <div class="col-lg-4 text-lg-end">
                     <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
