@@ -1,4 +1,10 @@
-<?php $url_base="http://localhost/website-agency/admin/"; ?>
+<?php 
+session_start();
+$url_base="http://localhost/website-agency/admin/"; 
+if (!isset($_SESSION['user'])) {
+    header("Location:".$url_base."login.php");    
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -25,7 +31,7 @@
                 <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/team/index.php">Team</a>
                 <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/config/index.php">Config</a>
                 <a class="nav-item nav-link" href=" <?php echo $url_base;?>sections/users/index.php">Users</a>
-                <a class="nav-item nav-link" href=" <?php echo $url_base;?>login.php">sing out</a>
+                <a class="nav-item nav-link" href=" <?php echo $url_base;?>close.php">sing out</a>
             </div>
         </nav>
 

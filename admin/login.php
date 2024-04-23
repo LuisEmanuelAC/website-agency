@@ -1,5 +1,30 @@
 <?php
-include("./bd.php")
+session_start();
+//buscar ususrio en la tabla a la BD
+if ($_POST) { 
+    include("./bd.php");
+
+   $username=(isset($_POST['username']))?$_POST['username']:"";
+    $password=(isset($_POST['password']))?$_POST['password']:"";   
+
+    $sql=$conn->prepare("SELECT *, count(*) as n_user FROM `tbl_users` WHERE username=:username AND password=:password");
+    
+    $sql->bindParam(":username",$username, PDO::PARAM_STR); 
+    $sql->bindParam(":password",$password, PDO::PARAM_STR);
+    $sql->execute();
+
+    $list_users=$sql->fetch(PDO::FETCH_LAZY);
+    
+   if ($list_users['n_user']>0) {
+        print_r("si exixte");
+
+        $_SESSION['user']=$list_users['username'];
+        $_SESSION['loggedin']=true;
+        header("Location:index.php");
+    }else {
+        print_r("--User or password does not exist--");
+    }    
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,18 +55,20 @@ include("./bd.php")
                         <div class="card-body">
 
                             <form action="" method="post">
-                                <div class="mb-3">
-                                    <label for="txtuser" class="form-label">User</label>
-                                    <input type="text" class="form-control" name="user" id="user"
-                                        aria-describedby="helpId" placeholder="" />
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="username" id="floatingInput"
+                                        placeholder="username">
+                                    <label for="floatingInput">Username</label>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="txtpassword" class="form-label">Password</label>
-                                    <input type="password" class="form-control" name="password" id="password"
-                                        aria-describedby="helpId" placeholder="" />
+                                <br>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" name="password" id="floatingPassword"
+                                        placeholder="Password">
+                                    <label for="floatingPassword">Password</label>
                                 </div>
-
-                                <a name="" id="" class="btn btn-primary" href="index.php" role="button">sing in</a>
+                                <br>
+                                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign
+                                    in</button>
 
                             </form>
 
