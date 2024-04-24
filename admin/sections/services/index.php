@@ -16,7 +16,7 @@ $list_services=$sql->fetchAll(PDO::FETCH_ASSOC);
 
 include("../../templates/header.php"); ?>
 
-lista servicios
+<h1>Services list</h1>
 
 <div class="card">
     <div class="card-header">

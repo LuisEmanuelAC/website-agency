@@ -4,8 +4,9 @@ session_start();
 if ($_POST) { 
     include("./bd.php");
 
-   $username=(isset($_POST['username']))?$_POST['username']:"";
-    $password=(isset($_POST['password']))?$_POST['password']:"";   
+    $username=(isset($_POST['username']))?$_POST['username']:"";
+    $password=(isset($_POST['password']))?md5($_POST['password']):"";
+ 
 
     $sql=$conn->prepare("SELECT *, count(*) as n_user FROM `tbl_users` WHERE username=:username AND password=:password");
     
@@ -22,7 +23,7 @@ if ($_POST) {
         $_SESSION['loggedin']=true;
         header("Location:index.php");
     }else {
-        print_r("--User or password does not exist--");
+        $message_userDExist="User or password does not exist";
     }    
 }
 ?>
@@ -50,6 +51,21 @@ if ($_POST) {
                 <div class="col-4">
                 </div>
                 <div class="col-4">
+                    <br><br>
+                    <?php if (isset($message_userDExist)) { ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong>Error: </strong><?php echo $message_userDExist; ?>
+                    </div>
+                    <?php } ?>
+
+                    <script>
+                    var alertList = document.querySelectorAll(".alert");
+                    alertList.forEach(function(alert) {
+                        new bootstrap.Alert(alert);
+                    });
+                    </script>
+
                     <div class="card">
                         <div class="card-header">Login</div>
                         <div class="card-body">

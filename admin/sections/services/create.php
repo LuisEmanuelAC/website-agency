@@ -13,13 +13,17 @@ if ($_POST) {
     $sql->bindParam(":title",$title);
     $sql->bindParam(":descrip",$descrip);
     $sql->execute();
+
+    $message="successfully added";
+    header("Location:index.php?message=".$message);
 }
 
 include("../../templates/header.php"); ?>
 
+<h1>Create service</h1>
+
 <div class="card">
-    <div class="card-header">Header</div>
-    crear servicios
+    <div class="card-header"></div>
     <div class="card-body">
         <form action="" enctype="multipart/form-data" method="post">
             <div class="mb-3">

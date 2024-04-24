@@ -5,7 +5,7 @@ include("../../bd.php");
 if ($_POST) {
     $username=(isset($_POST['username']))?$_POST['username']:"";
     $email=(isset($_POST['email']))?$_POST['email']:"";
-    $password=(isset($_POST['password']))?$_POST['password']:"";   
+    $password=(isset($_POST['password']))?md5($_POST['password']):"";   
 
     $sql=$conn->prepare("INSERT INTO `tbl_users` (`id`, `username`, `email`, `password`) 
     VALUES (NULL, :username, :email, :password)");
@@ -14,6 +14,9 @@ if ($_POST) {
     $sql->bindParam(":email",$email, PDO::PARAM_STR);
     $sql->bindParam(":password",$password, PDO::PARAM_STR);
     $sql->execute();
+
+    $message="successfully added";
+    header("Location:index.php?message=".$message);
 }
 
 include("../../templates/header.php"); ?>

@@ -12,6 +12,9 @@ if ($_POST) {
     $sql->bindParam(":name",$name, PDO::PARAM_STR);
     $sql->bindParam(":value",$value, PDO::PARAM_STR);
     $sql->execute();
+
+    $message="successfully added";
+    header("Location:index.php?message=".$message);
 }
 
 include("../../templates/header.php"); ?>

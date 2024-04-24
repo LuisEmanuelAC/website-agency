@@ -18,7 +18,7 @@ $list_config=$sql->fetchAll(PDO::FETCH_ASSOC);
 
 include("../../templates/header.php"); ?>
 
-<h1>Confinguration list</h1>
+<h1>Confingurations list</h1>
 
 <div class="card">
     <div class="card-header">

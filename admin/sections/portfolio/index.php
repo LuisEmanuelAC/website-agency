@@ -30,6 +30,8 @@ $list_portfolio=$sql->fetchAll(PDO::FETCH_ASSOC);
 
 include("../../templates/header.php"); ?>
 
+<h1>Portfolio list</h1>
+
 <div class="card">
     <div class="card-header">
         <a name="" id="" class="btn btn-primary" href="create.php" role="button">new</a>

@@ -25,7 +25,7 @@ if ($_POST) {
     $sql->bindParam(":value",$value, PDO::PARAM_STR);
     $sql->execute();
     
-    $message="Registration successfully modified";
+    $message="successfully modified";
     header("Location:index.php?message=".$message);
 }
 

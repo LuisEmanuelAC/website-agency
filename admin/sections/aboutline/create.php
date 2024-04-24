@@ -26,9 +26,14 @@ if ($_POST) {
     $sql->bindParam(":descrip",$descrip, PDO::PARAM_STR);
     $sql->bindParam(":image",$name_file_image);
     $sql->execute();
+
+    $message="successfully added";
+    header("Location:index.php?message=".$message);
 }
 
 include("../../templates/header.php"); ?>
+
+<h1>Create about</h1>
 
 <div class="card">
     <div class="card-header">portfolio product</div>

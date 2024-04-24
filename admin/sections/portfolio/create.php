@@ -32,9 +32,14 @@ if ($_POST) {
     $sql->bindParam(":category",$category);
     $sql->bindParam(":url",$url);
     $sql->execute();
+
+    $message="successfully added";
+    header("Location:index.php?message=".$message);
 }
 
 include("../../templates/header.php"); ?>
+
+<h1>Create portfolio</h1>
 
 <div class="card">
     <div class="card-header">portfolio product</div>

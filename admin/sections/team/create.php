@@ -35,9 +35,14 @@ if ($_POST) {
     $sql->bindParam(":job",$job, PDO::PARAM_STR);
     $sql->bindParam(":networks",$networks, PDO::PARAM_STR);
     $sql->execute();
+
+    $message="successfully added";
+    header("Location:index.php?message=".$message);
 }
 
 include("../../templates/header.php"); ?>
+
+<h1>Create member</h1>
 
 <div class="card">
     <div class="card-header">team member</div>

@@ -18,7 +18,7 @@ if ($_POST) {
     $txtID=(isset($_POST['txtID']))?$_POST['txtID']:"";
     $username=(isset($_POST['username']))?$_POST['username']:"";
     $email=(isset($_POST['email']))?$_POST['email']:"";
-    $password=(isset($_POST['password']))?$_POST['password']:"";   
+    $password=(isset($_POST['password']))?md5($_POST['password']):"";    
 
     $sql=$conn->prepare("UPDATE tbl_users SET username=:username, email=:email, password=:password WHERE id=:id");
 
@@ -28,14 +28,16 @@ if ($_POST) {
     $sql->bindParam(":password",$password, PDO::PARAM_STR);
     $sql->execute();
     
-    $message="Registration successfully modified";
+    $message="successfully modified";
     header("Location:index.php?message=".$message);
 }
 
 include("../../templates/header.php"); ?>
 
+<h1>User edit</h1>
+
 <div class="card">
-    <div class="card-header">service edit</div>
+    <div class="card-header"></div>
     <div class="card-body">
         <form action="" enctype="multipart/form-data" method="post">
 
@@ -60,8 +62,7 @@ include("../../templates/header.php"); ?>
             <div class="mb-3">
                 <label for="" class="form-label">Password</label>
                 <div class="mb-3 d-flex align-items-center">
-                    <input value="<?php echo $password;?>" type="password" class="form-control" name="password"
-                        id="password" placeholder="password" />
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password" />
                     <button type="button" class="btn btn-warning ms-2" id="togglePassword">Mostrar/Ocultar</button>
                 </div>
             </div>

@@ -29,11 +29,13 @@ if ($_POST) {
     $sql->bindParam(":descrip",$descrip);
     $sql->execute();
     
-    $message="Registration successfully modified";
+    $message="successfully modified";
     header("Location:index.php?message=".$message);
 }
 
 include("../../templates/header.php"); ?>
+
+<h1>Service edit</h1>
 
 <div class="card">
     <div class="card-header">service edit</div>

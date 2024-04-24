@@ -30,6 +30,8 @@ $list_team=$sql->fetchAll(PDO::FETCH_ASSOC);
 
 include("../../templates/header.php"); ?>
 
+<h1>Team members</h1>
+
 <div class="card">
     <div class="card-header">
         <a name="" id="" class="btn btn-primary" href="create.php" role="button">new</a>

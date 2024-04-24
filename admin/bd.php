@@ -6,7 +6,7 @@ $password="";
 
 try {
     $conn=new PDO("mysql:host=$server;dbname=$Database",$user,$password);
-    echo "successful connection";
+    //echo "successful connection";
 } catch (Exception $error) {
     echo $error->getMessage();
 }

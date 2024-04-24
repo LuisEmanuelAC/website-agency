@@ -56,11 +56,13 @@ if ($_POST) {
     }
 
 
-    $message="Registration successfully modified";
+    $message="successfully modified";
     header("Location:index.php?message=".$message);
 }
 
 include("../../templates/header.php"); ?>
+
+<h1>About edit</h1>
 
 <div class="card">
     <div class="card-header">About edit</div>
