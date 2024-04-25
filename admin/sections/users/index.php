@@ -17,6 +17,29 @@ $sql->execute();
 $list_users=$sql->fetchAll(PDO::FETCH_ASSOC);
 
 include("../../templates/header.php"); ?>
+<script>
+function confirDelate(params) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "the content will be removed from the entire table!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            window.location.href = "index.php?txtID=" + params;
+            Swal.fire({
+                title: "Deleted!",
+                text: "content has been deleted.",
+                icon: "success"
+            });
+        }
+    });
+}
+</script>
 
 <h1>User list</h1>
 
@@ -47,8 +70,8 @@ include("../../templates/header.php"); ?>
                             <a name="" id="" class="btn btn-info" href="edit.php?txtID=<?php echo $regis['id']; ?>"
                                 role="button">edit</a>
                             |
-                            <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $regis['id']; ?>"
-                                role="button">delate</a>
+                            <a name="" id="" class="btn btn-danger" role="button"
+                                onclick="confirDelate(<?php echo $regis['id']; ?>)">delate</a>
                         </td>
                     </tr>
                     <?php } ?>
